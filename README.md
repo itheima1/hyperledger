@@ -24,9 +24,10 @@
 
 
 ## 2. 安装git
->apt-get update
-
->apt-get install git
+``` shell
+apt-get update
+apt-get install git
+```
 
 ![image](https://note.youdao.com/yws/public/resource/95c087db9c2f4249616a4058c521ca13/xmlnote/B81421F12EF749859012A426ED493736/159)
 
@@ -34,9 +35,9 @@
 ## 3. 安装docker-ce
 请不要直接apt安装旧版本的docker
 
-    [阿里云安装docker教程](https://yq.aliyun.com/articles/110806?spm=5176.8351553.0.0.5d4e1991URD8Ia)
+[阿里云安装docker教程](https://yq.aliyun.com/articles/110806?spm=5176.8351553.0.0.5d4e1991URD8Ia)
 
-```
+```shell
 # step 1: 安装必要的一些系统工具
 sudo apt-get update
 sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
@@ -63,27 +64,32 @@ sudo apt-get -y install docker-ce
 
 
 ubuntu14.04系统采用不支持systemctl
->service docker restart  
-
-重启docker服务
+``` shell
+#重启docker服务
+service docker restart
+```
 
 
 ## 5. 安装hyperledger的工具和docker镜像
 
 点击官方[参考文档](http://hyperledger-fabric.readthedocs.io/en/release-1.1/samples.html#binaries)
 
-注意: 按照官方文档执行, 需要全局翻墙才行
+* 注意: 按照官方文档执行, 需要全局翻墙才行
 
 ![image](https://note.youdao.com/yws/public/resource/95c087db9c2f4249616a4058c521ca13/xmlnote/BB783CDD52B842A4A1BDAE19923FBA5E/225)
 
+* 安装完检查目录结构和docker镜像:
 
-安装完检查目录结构和docker镜像:
 ![image](https://note.youdao.com/yws/public/resource/95c087db9c2f4249616a4058c521ca13/xmlnote/AC3A8997B51C4C65AF9E1D4CF7F3FCD1/232)
 
 
 ## 6. 下载官方的示例代码 fabric sample
 
->git clone https://github.com/hyperledger/fabric-samples.git
+``` shell
+git clone https://github.com/hyperledger/fabric-samples.git
+```
+
+
 
 ![image](https://note.youdao.com/yws/public/resource/95c087db9c2f4249616a4058c521ca13/xmlnote/DA434F1251A342F99E1BACC24C208524/240)
 
@@ -97,7 +103,7 @@ ubuntu14.04系统采用不支持systemctl
 
 ## 8. 启动fabric ledger的第一个网络
 运行如下命令:
-```
+```shell
 #1. 配置环境变量, fabirc的二进制工具
 export PATH=/root/bin:$PATH
 #2. 生成hyperledger fabric的各种区块链配置
@@ -119,7 +125,7 @@ chmod +x /usr/local/bin/docker-compose
 >/etc/resolv.conf 
 注释掉 options timeout:2 attempts:3 rotate single-request-reopen
 重新执行
-```
+```shell
 ./byfn.sh -m down
 ./byfn.sh -m up
 ```
@@ -136,21 +142,26 @@ chmod +x /usr/local/bin/docker-compose
 >看到上面的截图,说明你的开发环境已经准备好, 接下来我们就可以搭建自己的组织结构,编写nodejs的链码了.
 
 
+
 ## 11. 停止网络请使用命令
 
-> ./byfn.sh -m down
-
+``` shell
+./byfn.sh -m down
+```
 
 
 
 ## 12. 切换到basic-network目录
+
 来到fabirc-sample目录的basic-network文件夹
 
+
+
 ## 13. 修改 basic-network的docker-compose.yml
+
 ![image](https://note.youdao.com/yws/public/resource/95c087db9c2f4249616a4058c521ca13/xmlnote/14483191ED1C41A7991A62E954BE79BD/298)
 > 说明: 启用开发者模式,这样加快调试部署,减少资源开销
-开启7052端口, 开发模式下不使用tls会减少出错的概率,生产环境需要启用tls
-
+> 开启7052端口, 开发模式下不使用tls会减少出错的概率,生产环境需要启用tls
 
 
 
@@ -163,13 +174,14 @@ chmod +x /usr/local/bin/docker-compose
 
 ## 15. 启动脚本 'start.h'
 ![image](https://note.youdao.com/yws/public/resource/95c087db9c2f4249616a4058c521ca13/xmlnote/EAD0F21FA9394D5CB8E6394758C2BB26/326)
-可以看到启动了ca节点,peer节点,order节点,cli节点和couchdb,创建了channel,peer加入了channel
+
+>  可以看到启动了ca节点,peer节点,order节点,cli节点和couchdb,创建了channel,peer加入了channel
 
 
 ## 16. 查看状态
 ![image](https://note.youdao.com/yws/public/resource/95c087db9c2f4249616a4058c521ca13/xmlnote/FAF8C3A10DF14B47B8AF757A6FBE8989/337)
 
-```
+```shell
 docker ps
 #可以看到当前运行的docker容器, peer,order,couchdb,ca,cli节点
 docker exec -it bash 
@@ -179,11 +191,13 @@ peer channel list
 ```
 
 
+
 ## 17. chaincode编写需要使用nodejs
+
 请安装>8.0版本的nodejs
 
 官网连接 [点我直达](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
-```
+```shell
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
@@ -191,7 +205,7 @@ sudo apt-get install -y nodejs
 
 
 ## 18.编写nodejs的chaincode
-```
+```shell
 #1.创建mycc文件夹
 mkdir mycc
 #2. 初始化package.json文件
@@ -207,7 +221,7 @@ npm install --save fabric-shim --registry=https://registry.npm.taobao.org
 
 
 ## 19. 编写nodejs链码
-```
+```javascript
 const shim = require('fabric-shim');
 const Chaincode = class{
     //链码初始化操作
@@ -242,7 +256,7 @@ shim.start(new Chaincode());
 
 ## 20. 把chaincode注册给peer
 他们之间通过grcp协议通信
-```
+```shell
 CORE_CHAINCODE_ID_NAME="mycc:v0"  npm start -- --peer.address grpc://192.168.0.1:7052
 ```
 ![image](https://note.youdao.com/yws/public/resource/95c087db9c2f4249616a4058c521ca13/xmlnote/94BCB93C2A2C4187865814C0844C15AD/390)
@@ -252,7 +266,7 @@ CORE_CHAINCODE_ID_NAME="mycc:v0"  npm start -- --peer.address grpc://192.168.0.1
 ## 21. 在peer上install安装链码
 这是peer上chaincode的生命周期
 
-```
+```shell
 CORE_PEER_LOCALMSPID=Org1MSP CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp peer chaincode install -l node -n mycc -v v0 -p /opt/gopath/src/github.com/mycc/
 
 ```
@@ -262,7 +276,7 @@ CORE_PEER_LOCALMSPID=Org1MSP CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/
 
 ## 22. 在peer上实例化链码
 
-```
+```shell
 CORE_PEER_LOCALMSPID=Org1MSP CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp peer chaincode instantiate -l node -n mycc -v v0 -C mychannel -c '{"args":["init","zzh","100","czbk","100"]}' -o 192.168.0.1:7050
 ```
 
@@ -272,7 +286,7 @@ CORE_PEER_LOCALMSPID=Org1MSP CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/
 ## 23. 测试链码调用
 
 
-```
+```shell
 CORE_PEER_LOCALMSPID=Org1MSP CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp peer chaincode invoke -n mycc -C mychannel -c '{"args":["query","zzh"]}' -o 192.168.0.1:7050
 ```
 
@@ -287,11 +301,16 @@ CORE_PEER_LOCALMSPID=Org1MSP CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/
 试着自己实现一下transfer方法吧
 
 ## 25. 停止网络使用
-> ./stop.sh ./teardown.sh
+``` shell
+./stop.sh ./teardown.sh
+```
+
+
 
 
 ## 26. 查看环境是否清理干净
-> docker ps 无内容就说明环境清理干净
+``` shell
+docker ps
 ```
 
-```
+> 无内容就说明环境清理干净
