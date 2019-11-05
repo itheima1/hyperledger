@@ -1,3 +1,6 @@
+视频教程
+https://pan.baidu.com/s/1mFMPIXTSR1-wuRaLm7y6hw
+
 # 手把手教你hyperledger fabirc v1.1 
 
 > 网上大多数hyperledger fabric的教程都是基于0.6或者1.0等比较老的版本, 主要采用go语言开发chaincode, 采用java-sdk去调用链码.
